@@ -7,7 +7,6 @@ package com._123digits.businesscard.ocr;
  *
  */
 public class OCRContactInfo implements ContactInfo {
-
 	private final String name;
 	private final String phoneNumber;
 	private final String emailAddress;

@@ -10,19 +10,23 @@ import org.junit.Test;
  *
  */
 public class OCRContactInfoTest {
+	private static final String TEST_VALUE = "testValue";
 
 	@Test
 	public void testGetName() {
-		Assert.assertTrue(true);
+		OCRContactInfo contactInfo = new OCRContactInfo(TEST_VALUE, null, null);
+		Assert.assertEquals(TEST_VALUE, contactInfo.getName());
 	}
 
 	@Test
 	public void testPhoneNumber() {
-		Assert.assertTrue(true);
+		OCRContactInfo contactInfo = new OCRContactInfo(null, TEST_VALUE, null);
+		Assert.assertEquals(TEST_VALUE, contactInfo.getPhoneNumber());
 	}
 
 	@Test
 	public void testGetEmailAddress() {
-		Assert.assertTrue(true);
+		OCRContactInfo contactInfo = new OCRContactInfo(null, null, TEST_VALUE);
+		Assert.assertEquals(TEST_VALUE, contactInfo.getEmailAddress());
 	}
 }

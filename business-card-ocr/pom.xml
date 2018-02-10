@@ -6,6 +6,11 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>business-card-ocr</name>
 	<description>Detects and Extracts Business Card Info including Name, Phone Number, and Email.</description>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
 	<build>
 		<plugins>
 			<plugin>
