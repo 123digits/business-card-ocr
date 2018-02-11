@@ -1,5 +1,6 @@
 package com._123digits.businesscard.ocr;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -66,5 +67,168 @@ public class OCRBusinessCardParserTest {
 		// Assert.assertEquals("Arthur Wilson", contactInfo.getName());
 		Assert.assertEquals("17035551259", contactInfo.getPhoneNumber());
 		Assert.assertEquals("awilson@abctech.com", contactInfo.getEmailAddress());
+	}
+
+	@Test
+	public void testGetPhoneNumber_Scenarios() {
+		OCRBusinessCardParser parser = new OCRBusinessCardParser();
+
+		ContactInfo contactInfo = parser.getContactInfo("123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("(123)456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("(123) 456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("123 456 7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("123.456.7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("+91 (123) 456-7890");
+		Assert.assertEquals("911234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Tel:+1 (123) 456-78909");
+		Assert.assertEquals("11234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Tel +1 (123) 456-7890");
+		Assert.assertEquals("11234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Tel: +1 (123) 456-7890");
+		Assert.assertEquals("11234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Tel| +1 (123) 456-7890");
+		Assert.assertEquals("11234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Tel | +1 (123) 456-7890");
+		Assert.assertEquals("11234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Phone:123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Phone 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Phone: 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Phone| 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Phone | 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Mobile:123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Mobile 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Mobile: 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Mobile| 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Mobile | 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Cell:123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Cell 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Cell: 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Cell| 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Cell | 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Office:123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Office 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Office: 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Office| 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Office | 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("T:123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("T 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("T: 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("T| 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("T | 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("T. 123-456-7890");
+		Assert.assertEquals("1234567890", contactInfo.getPhoneNumber());
+
+		contactInfo = parser.getContactInfo("Fax: 123-456-7890");
+		Assert.assertEquals(StringUtils.EMPTY, contactInfo.getPhoneNumber());
+	}
+
+	@Test
+	public void testGetEmail_Scenarios() {
+		OCRBusinessCardParser parser = new OCRBusinessCardParser();
+
+		ContactInfo contactInfo = parser.getContactInfo("a@b.c");
+		Assert.assertEquals("a@b.c", contactInfo.getEmailAddress());
+
+		contactInfo = parser.getContactInfo(" a@b.c ");
+		Assert.assertEquals("a@b.c", contactInfo.getEmailAddress());
+
+		contactInfo = parser.getContactInfo("Email a@b.c ");
+		Assert.assertEquals("a@b.c", contactInfo.getEmailAddress());
+
+		contactInfo = parser.getContactInfo("Email: a@b.c ");
+		Assert.assertEquals("a@b.c", contactInfo.getEmailAddress());
+
+		contactInfo = parser.getContactInfo("Email : a@b.c ");
+		Assert.assertEquals("a@b.c", contactInfo.getEmailAddress());
+
+		contactInfo = parser.getContactInfo("Email| a@b.c ");
+		Assert.assertEquals("a@b.c", contactInfo.getEmailAddress());
+
+		contactInfo = parser.getContactInfo("Email | a@b.c ");
+		Assert.assertEquals("a@b.c", contactInfo.getEmailAddress());
+
+		contactInfo = parser.getContactInfo("E-Mail a@b.c ");
+		Assert.assertEquals("a@b.c", contactInfo.getEmailAddress());
+
+		contactInfo = parser.getContactInfo("E-Mail: a@b.c ");
+		Assert.assertEquals("a@b.c", contactInfo.getEmailAddress());
+
+		contactInfo = parser.getContactInfo("E-Mail : a@b.c ");
+		Assert.assertEquals("a@b.c", contactInfo.getEmailAddress());
+
+		contactInfo = parser.getContactInfo("E-Mail| a@b.c ");
+		Assert.assertEquals("a@b.c", contactInfo.getEmailAddress());
+
+		contactInfo = parser.getContactInfo("E-Mail | a@b.c ");
+		Assert.assertEquals("a@b.c", contactInfo.getEmailAddress());
 	}
 }
