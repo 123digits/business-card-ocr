@@ -70,7 +70,12 @@ This Maven/Java project can be built via running 'mvn install' or alternatively 
 
 This Maven/Java project can be tested via running the JUnit tests.
 
-This Maven/Java project can be run via using an IDE and run OCTBusinessCardParser with a series of String arguments to be parsed and output on the command line. As one example, running the String arguments: "Mark Test\n(123)-456-7890\nmtest@test.com" "First Last\n(123)456-7890\nfirst.last@test.com" would parse out both and print them out separately like the output above.
+This Maven/Java project can be run via using an IDE and run OCTBusinessCardParser with a series of String arguments to be parsed and output on the command line. As one example, running the String arguments would parse out both and print them out separately like the output above: 
+
+"Mark Test|(123)-456-7890|mtest@test.com" "First Last|(123)456-7890|first.last@test.com"
 
 Additionally, when running 'mvn install' or 'mvn clean install', the program can be executed on the command line via the JAR file that is created in the target directory. As an example:
-java -cp business-card-ocr-0.0.1-SNAPSHOT.jar com._123digits.businesscard.ocr.OCRContactInfo "Mark Test\n(123)456-7890\nmtest@test.com"
+
+java -cp business-card-ocr-0.0.1-SNAPSHOT.jar com._123digits.businesscard.ocr.OCRBusinessCardParser "Mark Test|(123)456-7890|mtest@test.com" "First Last|(123)456-7890|first.last@test.com"
+
+NOTE: The pipeline character is converted to newline characters before running them as a result of the in-ability to pass newline characters within String arguments to the main method in the jar file.

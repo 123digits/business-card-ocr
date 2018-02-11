@@ -22,18 +22,15 @@ public class OCRBusinessCardParser implements BusinessCardParser {
 			Pattern.CASE_INSENSITIVE);
 
 	public static void main(String[] args) {
-		System.out.println(PHONE_REGEX.toString());
-		System.out.println(PHONE_REGEX.pattern());
-		System.out.println(EMAIL_REGEX.toString());
-		System.out.println(EMAIL_REGEX.pattern());
 		OCRBusinessCardParser parser = new OCRBusinessCardParser();
 		for (String arg : args) {
+			String argWithNewlines = arg.replace('|', '\n');
 			System.out.println();
-			System.out.println(arg);
+			System.out.println(argWithNewlines);
 			System.out.println();
 			System.out.println("==>");
 			System.out.println();
-			ContactInfo contactInfo = parser.getContactInfo(arg);
+			ContactInfo contactInfo = parser.getContactInfo(argWithNewlines);
 			System.out.println("Name: " + contactInfo.getName());
 			System.out.println("Phone: " + contactInfo.getPhoneNumber());
 			System.out.println("Email: " + contactInfo.getEmailAddress());
