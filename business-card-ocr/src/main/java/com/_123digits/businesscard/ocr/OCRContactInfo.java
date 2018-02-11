@@ -1,5 +1,7 @@
 package com._123digits.businesscard.ocr;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Stores the extracted name, phone number, and email address.
  * 
@@ -7,24 +9,22 @@ package com._123digits.businesscard.ocr;
  *
  */
 public class OCRContactInfo implements ContactInfo {
-	private final String name;
-	private final String phoneNumber;
-	private final String emailAddress;
+	private String name = StringUtils.EMPTY;
+	private String phoneNumber = StringUtils.EMPTY;
+	private String emailAddress = StringUtils.EMPTY;
+
+	public OCRContactInfo() {
+		// implicit public constructor
+	}
 
 	/**
-	 * Stores the extracted contact information
+	 * Stores the extracted full name
 	 * 
 	 * @param name
 	 *            extracted full name
-	 * @param phoneNumber
-	 *            extracted phone number
-	 * @param emailAddress
-	 *            extracted email address
 	 */
-	public OCRContactInfo(String name, String phoneNumber, String emailAddress) {
+	public void setName(String name) {
 		this.name = name;
-		this.phoneNumber = phoneNumber;
-		this.emailAddress = emailAddress;
 	}
 
 	@Override
@@ -32,9 +32,29 @@ public class OCRContactInfo implements ContactInfo {
 		return name;
 	}
 
+	/**
+	 * Stores the extracted phone number
+	 * 
+	 * @param phoneNumber
+	 *            extracted phone number
+	 */
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	@Override
 	public String getPhoneNumber() {
 		return phoneNumber;
+	}
+
+	/**
+	 * Stores the extracted email address
+	 * 
+	 * @param emailAddress
+	 *            extracted email address
+	 */
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 
 	@Override
