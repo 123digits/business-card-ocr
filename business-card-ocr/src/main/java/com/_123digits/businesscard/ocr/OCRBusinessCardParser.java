@@ -62,9 +62,26 @@ public class OCRBusinessCardParser implements BusinessCardParser {
 				contactInfo.setEmailAddress(match);
 			}
 		}
+		String emailUser = StringUtils.substringBefore(contactInfo.getEmailAddress(), "@");
 		// Second scan for full name leveraging the email address
 		for (String line : document.split("\n")) {
-			// work out name based on email
+			// Tokenize String by spaces for easy comparison with email address
+			String[] tokens = line.split(" ");
+			// Loop through the String tokens backwards
+			for (int i = tokens.length - 1; i != -1; i--) {
+				// Match where Token matches end of user for user@domain.com
+				if (i >= 1 && StringUtils.endsWithIgnoreCase(emailUser, tokens[i])) {
+					// Save off the starting character for the first name
+					char firstNameInitial = Character.toLowerCase(emailUser.charAt(0));
+					if (i >= 1 && Character.toLowerCase(tokens[i - 1].charAt(0)) == firstNameInitial) {
+						// Found the First/Last name combination in the previous token
+						contactInfo.setName(String.format("%s %s", tokens[i - 1], tokens[i]));
+					} else if (i >= 2 && Character.toLowerCase(tokens[i - 2].charAt(0)) == firstNameInitial) {
+						// Found the First/Middle/Last name combination in the previous two tokens
+						contactInfo.setName(String.format("%s %s %s", tokens[i - 2], tokens[i - 1], tokens[i]));
+					}
+				}
+			}
 		}
 		return contactInfo;
 	}

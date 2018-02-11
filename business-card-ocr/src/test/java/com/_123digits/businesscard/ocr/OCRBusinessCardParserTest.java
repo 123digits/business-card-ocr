@@ -5,8 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test that the ContactInfo object contains all of the fields extracted from
- * {@link OCRContactInfo}.
+ * Test that the ContactInfo object contains all of the extracted fields.
  * 
  * @author 123digits
  *
@@ -24,7 +23,7 @@ public class OCRBusinessCardParserTest {
 
 		OCRBusinessCardParser parser = new OCRBusinessCardParser();
 		ContactInfo contactInfo = parser.getContactInfo(sb.toString());
-		// Assert.assertEquals("Mike Smith", contactInfo.getName());
+		Assert.assertEquals("Mike Smith", contactInfo.getName());
 		Assert.assertEquals("4105551234", contactInfo.getPhoneNumber());
 		Assert.assertEquals("msmith@asymmetrik.com", contactInfo.getEmailAddress());
 	}
@@ -43,7 +42,7 @@ public class OCRBusinessCardParserTest {
 
 		OCRBusinessCardParser parser = new OCRBusinessCardParser();
 		ContactInfo contactInfo = parser.getContactInfo(sb.toString());
-		// Assert.assertEquals("Lisa Haung", contactInfo.getName());
+		Assert.assertEquals("Lisa Haung", contactInfo.getName());
 		Assert.assertEquals("4105551234", contactInfo.getPhoneNumber());
 		Assert.assertEquals("lisa.haung@foobartech.com", contactInfo.getEmailAddress());
 	}
@@ -64,7 +63,7 @@ public class OCRBusinessCardParserTest {
 
 		OCRBusinessCardParser parser = new OCRBusinessCardParser();
 		ContactInfo contactInfo = parser.getContactInfo(sb.toString());
-		// Assert.assertEquals("Arthur Wilson", contactInfo.getName());
+		Assert.assertEquals("Arthur Wilson", contactInfo.getName());
 		Assert.assertEquals("17035551259", contactInfo.getPhoneNumber());
 		Assert.assertEquals("awilson@abctech.com", contactInfo.getEmailAddress());
 	}
@@ -189,6 +188,23 @@ public class OCRBusinessCardParserTest {
 
 		contactInfo = parser.getContactInfo("Fax: 123-456-7890");
 		Assert.assertEquals(StringUtils.EMPTY, contactInfo.getPhoneNumber());
+	}
+
+	@Test
+	public void testGetName_Scenarios() {
+		OCRBusinessCardParser parser = new OCRBusinessCardParser();
+
+		ContactInfo contactInfo = parser.getContactInfo("Mike Smith\nmsmith@asymmetrik.com");
+		Assert.assertEquals("Mike Smith", contactInfo.getName());
+
+		contactInfo = parser.getContactInfo("Lisa Haung\nlisa.haung@foobartech.com");
+		Assert.assertEquals("Lisa Haung", contactInfo.getName());
+
+		contactInfo = parser.getContactInfo("Arthur Wilson\nawilson@abctech.com");
+		Assert.assertEquals("Arthur Wilson", contactInfo.getName());
+
+		contactInfo = parser.getContactInfo("First Last\nflast@name.com");
+		Assert.assertEquals("First Last", contactInfo.getName());
 	}
 
 	@Test
