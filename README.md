@@ -4,65 +4,65 @@ We have created a new smartphone app that enables users to snap a photo of a bus
 
 [1] Interface Specification
 
-ContactInfo
-    String getName() : returns the full name of the individual (eg. John Smith, Susan Malick)
-    String getPhoneNumber() : returns the phone number formatted as a sequence of digits
-    String getEmailAddress() : returns the email address
+ContactInfo<br>
+    String getName() : returns the full name of the individual (eg. John Smith, Susan Malick)<br>
+    String getPhoneNumber() : returns the phone number formatted as a sequence of digits<br>
+    String getEmailAddress() : returns the email address<br>
 
-BusinessCardParser
-    ContactInfo getContactInfo(String document)
+BusinessCardParser<br>
+    ContactInfo getContactInfo(String document)<br>
 
 [2] Example input documents and their expected results
 
 Example 1:
 
-ASYMMETRIK LTD
-Mike Smith
-Senior Software Engineer
-(410)555-1234
-msmith@asymmetrik.com
+ASYMMETRIK LTD<br>
+Mike Smith<br>
+Senior Software Engineer<br>
+(410)555-1234<br>
+msmith@asymmetrik.com<br>
 
 ==>
 
-Name: Mike Smith
-Phone: 4105551234
-Email: msmith@asymmetrik.com
+Name: Mike Smith<br>
+Phone: 4105551234<br>
+Email: msmith@asymmetrik.com<br>
 
 Example 2:
 
-Foobar Technologies
-Analytic Developer
-Lisa Haung
-1234 Sentry Road
-Columbia, MD 12345
-Phone: 410-555-1234
-Fax: 410-555-4321
-lisa.haung@foobartech.com
+Foobar Technologies<br>
+Analytic Developer<br>
+Lisa Haung<br>
+1234 Sentry Road<br>
+Columbia, MD 12345<br>
+Phone: 410-555-1234<br>
+Fax: 410-555-4321<br>
+lisa.haung@foobartech.com<br>
 
 ==>
 
-Name: Lisa Haung
-Phone: 4105551234
-Email: lisa.haung@foobartech.com
+Name: Lisa Haung<br>
+Phone: 4105551234<br>
+Email: lisa.haung@foobartech.com<br>
 
 Example 3:
 
-Arthur Wilson
-Software Engineer
-Decision & Security Technologies
-ABC Technologies
-123 North 11th Street
-Suite 229
-Arlington, VA 22209
-Tel: +1 (703) 555-1259
-Fax: +1 (703) 555-1200
-awilson@abctech.com
+Arthur Wilson<br>
+Software Engineer<br>
+Decision & Security Technologies<br>
+ABC Technologies<br>
+123 North 11th Street<br>
+Suite 229<br>
+Arlington, VA 22209<br>
+Tel: +1 (703) 555-1259<br>
+Fax: +1 (703) 555-1200<br>
+awilson@abctech.com<br>
 
 ==>
 
-Name: Arthur Wilson
-Phone: 17035551259
-Email: awilson@abctech.com
+Name: Arthur Wilson<br>
+Phone: 17035551259<br>
+Email: awilson@abctech.com<br>
 
 --------------------------------------------------------------
 
